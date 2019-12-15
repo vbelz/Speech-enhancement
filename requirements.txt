@@ -1,0 +1,6 @@
+pytest
+tensorflow
+librosa
+librosa.display
+matplotlib
+numpy 
