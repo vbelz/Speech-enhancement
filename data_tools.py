@@ -37,16 +37,16 @@ def audio_files_to_numpy(audio_dir, list_audio_files, sample_rate, frame_length,
     return np.vstack(list_sound_array)
 
 
-def blend_noise_randomly(voice, noise, Nb_samples, frame_length):
+def blend_noise_randomly(voice, noise, nb_samples, frame_length):
     """This function takes as input numpy arrays representing frames
     of voice sounds, noise sounds and the number of frames to be created
     and return numpy arrays with voice randomly blend with noise"""
 
-    prod_voice = np.zeros((Nb_samples, frame_length))
-    prod_noise = np.zeros((Nb_samples, frame_length))
-    prod_noisy_voice = np.zeros((Nb_samples, frame_length))
+    prod_voice = np.zeros((nb_samples, frame_length))
+    prod_noise = np.zeros((nb_samples, frame_length))
+    prod_noisy_voice = np.zeros((nb_samples, frame_length))
 
-    for i in range(Nb_samples):
+    for i in range(nb_samples):
         id_voice = np.random.randint(0, voice.shape[0])
         id_noise = np.random.randint(0, noise.shape[0])
         level_noise = np.random.uniform(0.2, 0.8)
@@ -70,6 +70,23 @@ def audio_to_magnitude_db_and_phase(n_fft, hop_length_fft, audio):
     return stftaudio_magnitude_db, stftaudio_phase
 
 
+def numpy_audio_to_matrix_spectrogram(numpy_audio, dim_square_spec, n_fft, hop_length_fft):
+    """This function takes as input a numpy audi of size (nb_frame,frame_length), and return
+    a numpy containing the matrix spectrogram for amplitude in dB and phase. It will have the size
+    (nb_frame,dim_square_spec,dim_square_spec)"""
+
+    nb_audio = numpy_audio.shape[0]
+
+    m_mag_db = np.zeros((nb_audio, dim_square_spec, dim_square_spec))
+    m_phase = np.zeros((nb_audio, dim_square_spec, dim_square_spec), dtype=complex)
+
+    for i in range(nb_audio):
+        m_mag_db[i, :, :], m_phase[i, :, :] = audio_to_magnitude_db_and_phase(
+            n_fft, hop_length_fft, numpy_audio[i])
+
+    return m_mag_db, m_phase
+
+
 def magnitude_db_and_phase_to_audio(frame_length, hop_length_fft, stftaudio_magnitude_db, stftaudio_phase):
     """This functions reverts a spectrogram to an audio"""
 
@@ -81,19 +98,36 @@ def magnitude_db_and_phase_to_audio(frame_length, hop_length_fft, stftaudio_magn
 
     return audio_reconstruct
 
+def matrix_spectrogram_to_numpy_audio(m_mag_db, m_phase, frame_length, hop_length_fft)  :
+    """This functions reverts the matrix spectrograms to numpy audio"""
 
-def numpy_audio_to_matrix_spectrogram(numpy_audio, dim_square_spec, n_fft, hop_length_fft):
-    """This function takes as input a numpy audi of size (nb_frame,frame_length), and return
-    a numpy containing the matrix spectrogram for amplitude in dB and phase. It will have the size
-    (nb_frame,dim_square_spec,dim_square_spec)"""
+    list_audio = []
 
-    Nb_audio = numpy_audio.shape[0]
+    nb_spec = m_mag_db.shape[0]
 
-    M_mag_db = np.zeros((Nb_audio, dim_square_spec, dim_square_spec))
-    M_phase = np.zeros((Nb_audio, dim_square_spec, dim_square_spec), dtype=complex)
+    for i in range(nb_spec):
 
-    for i in range(Nb_audio):
-        M_mag_db[i, :, :], M_phase[i, :, :] = audio_to_magnitude_db_and_phase(
-            n_fft, hop_length_fft, numpy_audio[i])
+        audio_reconstruct = magnitude_db_and_phase_to_audio(frame_length, hop_length_fft, m_mag_db[i], m_phase[i])
+        list_audio.append(audio_reconstruct)
 
-    return M_mag_db, M_phase
+    return np.vstack(list_audio)
+
+def scaled_in(matrix_spec):
+    "global scaling apply to noisy voice spectrograms (scale between -1 and 1)"
+    matrix_spec = (matrix_spec + 46)/50
+    return matrix_spec
+
+def scaled_ou(matrix_spec):
+    "global scaling apply to noise models spectrograms (scale between -1 and 1)"
+    matrix_spec = (matrix_spec -6 )/82
+    return matrix_spec
+
+def inv_scaled_in(matrix_spec):
+    "inverse global scaling apply to noisy voices spectrograms"
+    matrix_spec = matrix_spec * 50 - 46
+    return matrix_spec
+
+def inv_scaled_ou(matrix_spec):
+    "inverse global scaling apply to noise models spectrograms"
+    matrix_spec = matrix_spec * 82 + 6
+    return matrix_spec

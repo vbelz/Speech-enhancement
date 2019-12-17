@@ -46,11 +46,11 @@ def make_3plots_spec_voice_noise(stftvoicenoise_mag_db,stftnoise_mag_db,stftvoic
     librosa.display.specshow(stftvoicenoise_mag_db, x_axis='time', y_axis='linear',sr=sample_rate, hop_length=hop_length_fft)
     plt.colorbar()
     plt.subplot(3, 1, 2)
-    plt.title('Spectrogram noise')
+    plt.title('Spectrogram predicted voice')
     librosa.display.specshow(stftnoise_mag_db, x_axis='time', y_axis='linear',sr=sample_rate, hop_length=hop_length_fft)
     plt.colorbar()
     plt.subplot(3, 1, 3)
-    plt.title('Spectrogram voice')
+    plt.title('Spectrogram true voice')
     librosa.display.specshow(stftvoice_mag_db, x_axis='time', y_axis='linear',sr=sample_rate, hop_length=hop_length_fft)
     plt.colorbar()
     plt.tight_layout()
@@ -66,11 +66,11 @@ def make_3plots_phase_voice_noise(stftvoicenoise_phase,stftnoise_phase,stftvoice
     librosa.display.specshow(np.angle(stftvoicenoise_phase), x_axis='time', y_axis='linear',sr=sample_rate, hop_length=hop_length_fft)
     plt.colorbar()
     plt.subplot(3, 1, 2)
-    plt.title('Phase (radian) noise')
+    plt.title('Phase (radian) predicted voice')
     librosa.display.specshow(np.angle(stftnoise_phase), x_axis='time', y_axis='linear',sr=sample_rate, hop_length=hop_length_fft)
     plt.colorbar()
     plt.subplot(3, 1, 3)
-    plt.title('Phase (radian) voice')
+    plt.title('Phase (radian) true voice')
     librosa.display.specshow(np.angle(stftvoice_phase), x_axis='time', y_axis='linear',sr=sample_rate, hop_length=hop_length_fft)
     plt.colorbar()
     plt.tight_layout()
@@ -80,8 +80,8 @@ def make_3plots_phase_voice_noise(stftvoicenoise_phase,stftnoise_phase,stftvoice
 
 def make_3plots_timeseries_voice_noise(clipvoicenoise,clipnoise,clipvoice, sample_rate) :
     """This function plots the time series of audio of noisy voice, noise and voice as a single plot """
-    y_ax_min = min(clipvoicenoise) - 0.15
-    y_ax_max = max(clipvoicenoise) + 0.15
+    #y_ax_min = min(clipvoicenoise) - 0.15
+    #y_ax_max = max(clipvoicenoise) + 0.15
 
     plt.figure(figsize=(18, 12))
     plt.subplots_adjust(hspace=0.35)
@@ -90,18 +90,18 @@ def make_3plots_timeseries_voice_noise(clipvoicenoise,clipnoise,clipvoice, sampl
     plt.ylabel('Amplitude')
     plt.xlabel('Time(s)')
     librosa.display.waveplot(clipvoicenoise, sr=sample_rate)
-    plt.ylim(y_ax_min, y_ax_max)
+    plt.ylim(-0.05, 0.05)
     plt.subplot(3, 1, 2)
-    plt.title('Audio noise')
+    plt.title('Audio predicted voice')
     plt.ylabel('Amplitude')
     plt.xlabel('Time(s)')
     librosa.display.waveplot(clipnoise, sr=sample_rate)
-    plt.ylim(y_ax_min, y_ax_max)
+    plt.ylim(-0.05, 0.05)
     plt.subplot(3, 1, 3)
-    plt.title('Audio voice')
+    plt.title('Audio true voice')
     plt.ylabel('Amplitude')
     plt.xlabel('Time(s)')
     librosa.display.waveplot(clipvoice, sr=sample_rate)
-    plt.ylim(y_ax_min, y_ax_max)
+    plt.ylim(-0.05, 0.05)
 
     return
