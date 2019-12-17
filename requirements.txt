@@ -1,7 +1,6 @@
 pytest
 tensorflow==1.15.0
 librosa==0.6.2
-librosa.display
 matplotlib
 numpy==1.17.2
 scipy==1.3.1
