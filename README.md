@@ -33,9 +33,9 @@ The project is decomposed in three modes: `data creation`, `training` and `predi
 
 ## Prediction
 
-<img src="img/flow prediction.png" alt="flow prediction part 1" title="flow prediction part 1" />
+<img src="img/flow_prediction.png" alt="flow prediction part 1" title="flow prediction part 1" />
 
-<img src="img/flow prediction_part2.png" alt="flow prediction part 2" title="flow prediction part 2" />
+<img src="img/flow_prediction_part2.png" alt="flow prediction part 2" title="flow prediction part 2" />
 
 [Input example bells](/demo_data/validation/noisy_voice_bells28.wav)
 
