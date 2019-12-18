@@ -26,8 +26,8 @@ To create the datasets for training, I gathered english speech clean voices  and
 The clean voices were mainly gathered from [LibriSpeech](http://www.openslr.org/12/): an ASR corpus based on public domain audio books. I used as well some datas from [SiSec](https://sisec.inria.fr/sisec-2015/2015-two-channel-mixtures-of-speech-and-real-world-background-noise/).
 The environmental noises were gathered from [ESC-50 dataset](https://github.com/karoldvl/ESC-50) or [https://www.ee.columbia.edu/~dpwe/sounds/](https://www.ee.columbia.edu/~dpwe/sounds/).  
 
- For this project, I focused on 10 classes of environmental noise: tic clock, foot steps, bells, handsaw, alarm, fireworks, insects, brushing teeth, vaccum cleaner and snoring. These classes are illustrated in the image below
- (I created this image using pictures from (https://unsplash.com)[https://unsplash.com]).
+ For this project, I focused on 10 classes of environmental noise: **tic clock**, **foot steps**, **bells**, **handsaw**, **alarm**, **fireworks**, **insects**, **brushing teeth**, **vaccum cleaner** and **snoring**. These classes are illustrated in the image below
+ (I created this image using pictures from [https://unsplash.com](https://unsplash.com).
 
 <img src="img/classes_noise.png" alt="classes of environmental noise used" title="classes of environmental noise" />
 
@@ -46,7 +46,7 @@ Place your noise audio files into `noise_dir` directory and your clean voice fil
 Specify how many frames you want to create as `nb_samples` in `args.py` (or pass it as argument from the terminal)
 I let nb_samples=50 by default for the demo but for production I would recommend having 40 000 or more.
 
-Then run `python main.py --mode='data_creation' ` . This will randomly blend some clean voices from `voice_dir` with some noises from `noise_dir` and save the spectrograms of noisy voice, noise and clean voices to disk as well as complex phase, time series and sounds (for QC or to test other networks). It takes as inputs parameters defined in `args.py`. Parameters for STFT, frame length, hop_length can be modified in `args.py` (or pass it as argument from the terminal), but with the default parameters each window will be converted into spectrogram matrix of size 128 x 128.
+Then run `python main.py --mode='data_creation'`. This will randomly blend some clean voices from `voice_dir` with some noises from `noise_dir` and save the spectrograms of noisy voices, noises and clean voices to disk as well as complex phases, time series and sounds (for QC or to test other networks). It takes the inputs parameters defined in `args.py`. Parameters for STFT, frame length, hop_length can be modified in `args.py` (or pass it as arguments from the terminal), but with the default parameters each window will be converted into spectrogram matrix of size 128 x 128.
 
 Datasets to be used for training will be magnitude spectrograms of noisy voices and magnitude spectrograms of clean voices.
 
@@ -78,9 +78,51 @@ At the end, I obtained a training loss of 0.002129 and a validation loss of 0.00
 
 ## Prediction
 
+For prediction, the noisy voice audios are converted into numpy time series of windows slightly above 1 second. Each time serie is converted into a magnitude spectrogram and a phase spectrogram via STFT transforms. Noisy voice spectrograms are passed into the U-Net network that will predict the noise model for each window (cf graph below).
+
 <img src="img/flow_prediction.png" alt="flow prediction part 1" title="flow prediction part 1" />
 
+Then the model is subtracted from the noisy voice spectrogram (here I apply a direct subtraction as it was sufficient for my task, we could imagine to train a second network to adapt the noise model, or applying a matching filter such as performed in signal processing). The "denoised" magnitude spectrogram is combined with the initial phase as input for the inverse Short Time Fourier Transform (ISTFT). Our denoised time serie can be then converted to audio (cf graph below).
+
 <img src="img/flow_prediction_part2.png" alt="flow prediction part 2" title="flow prediction part 2" />
+
+Let's have a look at the performance on validation datas!
+
+Below I display some results from validation examples for Alarm/Insects/Vaccum cleaner/Bells noise.
+For each of them I display the initial noisy voice spectrogram, the denoised spectrogram predicted by the network, and the true clean voice spectrogram. We can see that the network is well able to generalize the noise modelling, and produce a slightly smoothed version of the voice spectrogram, very close to the true clean voice spectrogram.
+
+More examples of spectrogram denoising on validation data are displayed in the initial gif on top of the
+repository.
+
+<img src="img/validation_spec_examples.png" alt="validation examples" title="Spectrogram validation examples" />
+
+Let's hear the results converted back to sounds:
+
+> Audios for Alarm example:
+
+[Input example alarm](https://vbelz.github.io/Speech-enhancement/demo_data/validation/noisy_voice_alarm39.wav)
+
+[Predicted output example alarm](https://vbelz.github.io/Speech-enhancement/demo_data/validation/voice_pred_alarm39.wav)
+
+[True output example alarm](https://vbelz.github.io/Speech-enhancement/demo_data/validation/voice_alarm39.wav)
+
+> Audios for Insects example:
+
+[Input example insects](https://vbelz.github.io/Speech-enhancement/demo_data/validation/noisy_voice_insect41.wav)
+
+[Predicted output example insects](https://vbelz.github.io/Speech-enhancement/demo_data/validation/voice_pred_insect41.wav)
+
+[True output example insects](https://vbelz.github.io/Speech-enhancement/demo_data/validation/voice_insect41.wav)
+
+> Audios for Vaccum cleaner example:
+
+[Input example vaccum cleaner](https://vbelz.github.io/Speech-enhancement/demo_data/validation/noisy_voice_vaccum35.wav)
+
+[Predicted output example vaccum cleaner](https://vbelz.github.io/Speech-enhancement/demo_data/validation/voice_pred_vaccum35.wav)
+
+[True output example vaccum cleaner](https://vbelz.github.io/Speech-enhancement/demo_data/validation/voice_vaccum35.wav)
+
+> Audios for Bells example:
 
 [Input example bells](https://vbelz.github.io/Speech-enhancement/demo_data/validation/noisy_voice_bells28.wav)
 
@@ -88,11 +130,29 @@ At the end, I obtained a training loss of 0.002129 and a validation loss of 0.00
 
 [True output example bells](https://vbelz.github.io/Speech-enhancement/demo_data/validation/voice_bells28.wav)
 
-<img src="img/validation_spec_examples.png" alt="validation examples" title="Spectrogram validation examples" />
+Below I show the corresponding displays converting back to time series:
 
 <img src="img/validation_timeserie_examples.png" alt="validation examples timeserie" title="Time serie validation examples" />
 
+You can have a look at these displays/audios in the jupyter notebook `demo_predictions.ipynb` that I provide in the `./demo_data` folder.
+
+Below, I show the corresponding gif of the spectrogram denoising gif (top of the repository) in the time serie domain.
+
 <img src="img/denoise_ts_10classes.gif" alt="Timeserie denoising" title="Speech enhancement"/>
+
+As an extreme testing, I applied to some voices blended with many noises at a high level.
+The network appeared to work surprisingly well for the denoising.
+Below some examples:
+
+> Input audio example 1:
+[Input example test 1](https://vbelz.github.io/Speech-enhancement/demo_data/test/noisy_voice_long_t2.wav)
+
+[Predicted output example test 1](https://vbelz.github.io/Speech-enhancement/demo_data/save_predictions/denoise_t2.wav)
+
+> Predicted denoise example 2:
+[Input example test 2](https://vbelz.github.io/Speech-enhancement/demo_data/test/noisy_voice_long_t1.wav)
+
+[Predicted output example test 2](https://vbelz.github.io/Speech-enhancement/demo_data/save_predictions/denoise_t1.wav)
 
 ## How to use?
 
