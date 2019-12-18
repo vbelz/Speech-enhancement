@@ -9,7 +9,7 @@ import numpy as np
 def create_data(noise_dir, voice_dir, path_save_time_serie, path_save_sound, path_save_spectrogram, sample_rate,
 min_duration, frame_length, hop_length_frame, hop_length_frame_noise, nb_samples, n_fft, hop_length_fft):
     """This function will randomly blend some clean voices from voice_dir with some noises from noise_dir
-    and save the spectrogralms of noisy voice, noise and clean voices to disk as well as complex phase,
+    and save the spectrograms of noisy voice, noise and clean voices to disk as well as complex phase,
     time series and sounds. This aims at preparing datasets for denoising training. It takes as inputs
     parameters defined in args"""
 
