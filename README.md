@@ -39,7 +39,7 @@ The project is decomposed in three modes: `data creation`, `training` and `predi
 
 [Input example bells](/demo_data/validation/noisy_voice_bells28.wav)
 
-[Predicted output example bells](/demo_data/validation/voice_pred_bells28.wav)
+[Predicted output example bells](https://vbelz.github.io/Speech-enhancement/demo_data/validation/voice_pred_bells28.wav)
 
 [True output example bells](/demo_data/validation/voice_bells28.wav)
 
