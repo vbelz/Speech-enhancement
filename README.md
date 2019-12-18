@@ -144,12 +144,14 @@ As an extreme testing, I applied to some voices blended with many noises at a hi
 The network appeared to work surprisingly well for the denoising.
 Below some examples:
 
-> Input audio example 1:
+> Example 1:
+
 [Input example test 1](https://vbelz.github.io/Speech-enhancement/demo_data/test/noisy_voice_long_t2.wav)
 
 [Predicted output example test 1](https://vbelz.github.io/Speech-enhancement/demo_data/save_predictions/denoise_t2.wav)
 
-> Predicted denoise example 2:
+> Example 2:
+
 [Input example test 2](https://vbelz.github.io/Speech-enhancement/demo_data/test/noisy_voice_long_t1.wav)
 
 [Predicted output example test 2](https://vbelz.github.io/Speech-enhancement/demo_data/save_predictions/denoise_t1.wav)
