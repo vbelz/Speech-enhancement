@@ -1,13 +1,14 @@
 # Speech-enhancement
 ---
 [![Build Status](https://travis-ci.com/vbelz/Speech-enhancement.svg?branch=master)](https://travis-ci.com/vbelz/Speech-enhancement)
->
+>Vincent Belz
 >
 ## Introduction
+**This project aims at building a speech enhancement system to attenuate environmental noise.**
 
 <img src="img/denoise_10classes.gif" alt="Spectrogram denoising" title="Speech enhancement"/>
 
-This project aims at building a speech enhancement system to attenuate environmental noise.
+
 
 Audios have many different ways to be represented, going from raw time series to time-frequency decompositions.
 The choice of the representation is crucial for the performance of your system.
