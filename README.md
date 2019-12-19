@@ -160,10 +160,9 @@ Below some examples:
 ## How to use?
 
 ```
-Clone this repository
-pip install -r requirements.txt
-python main.py OPTIONS
-
+- Clone this repository
+- pip install -r requirements.txt
+- python main.py OPTIONS
 
 * Modes of the program (Possible OPTIONS):
 
