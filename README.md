@@ -78,7 +78,7 @@ At the end, I obtained a training loss of 0.002129 and a validation loss of 0.00
 
 ## Prediction
 
-For prediction, the noisy voice audios are converted into numpy time series of windows slightly above 1 second. Each time serie is converted into a magnitude spectrogram and a phase spectrogram via STFT transforms. Noisy voice spectrograms are passed into the U-Net network that will predict the noise model for each window (cf graph below).
+For prediction, the noisy voice audios are converted into numpy time series of windows slightly above 1 second. Each time serie is converted into a magnitude spectrogram and a phase spectrogram via STFT transforms. Noisy voice spectrograms are passed into the U-Net network that will predict the noise model for each window (cf graph below). Prediction time for one window once converted to magnitude spectrogram is around 80 ms using classical CPU.
 
 <img src="img/flow_prediction.png" alt="flow prediction part 1" title="flow prediction part 1" />
 
@@ -141,7 +141,8 @@ Below, I show the corresponding gif of the spectrogram denoising gif (top of the
 <img src="img/denoise_ts_10classes.gif" alt="Timeserie denoising" title="Speech enhancement"/>
 
 As an extreme testing, I applied to some voices blended with many noises at a high level.
-The network appeared to work surprisingly well for the denoising.
+The network appeared to work surprisingly well for the denoising.The total time to denoise a 5 sec audio was around 4 sec (using classical CPU).
+
 Below some examples:
 
 > Example 1:
@@ -161,8 +162,17 @@ Below some examples:
 ```
 Clone this repository
 pip install -r requirements.txt
+python main.py OPTIONS
+
+
+* Modes of the program (Possible OPTIONS):
+
+--mode: default='prediction', type=str, choices=['data_creation', 'training', 'prediction']
 
 ```
+
+Have a look at possible arguments for each option in `args.py`.
+
 ## References
 
 >Jansson, Andreas, Eric J. Humphrey, Nicola Montecchio, Rachel M. Bittner, Aparna Kumar and Tillman Weyde.**Singing Voice Separation with Deep U-Net Convolutional Networks.** *ISMIR* (2017).

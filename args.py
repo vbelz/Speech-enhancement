@@ -2,6 +2,8 @@ import argparse
 
 parser = argparse.ArgumentParser(description='Speech enhancement,data creation, training and prediction')
 
+#mode to run the program (options: data creation, training or prediction)
+parser.add_argument('--mode',default='prediction', type=str, choices=['data_creation', 'training', 'prediction'])
 #folders where to find noise audios and clean voice audio to prepare training dataset (mode data_creation)
 parser.add_argument('--noise_dir', default='/Users/vincentbelz/Documents/Data/Speech_enhancement/Train/noise', type=str)
 
@@ -46,6 +48,3 @@ parser.add_argument('--hop_length_frame_noise', default=5000, type=int)
 parser.add_argument('--n_fft', default=255, type=int)
 
 parser.add_argument('--hop_length_fft', default=63, type=int)
-
-#mode to run the program (options: data creation, training or prediction)
-parser.add_argument('--mode',default='prediction', type=str, choices=['data_creation', 'training', 'prediction'])
