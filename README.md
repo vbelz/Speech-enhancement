@@ -1,7 +1,7 @@
 # Speech-enhancement
 ---
 [![Build Status](https://travis-ci.com/vbelz/Speech-enhancement.svg?branch=master)](https://travis-ci.com/vbelz/Speech-enhancement)
->Vincent Belz
+>Vincent Belz : vincent.belz@gmail.com
 >
 ## Introduction
 **This project aims at building a speech enhancement system to attenuate environmental noise.**
@@ -60,7 +60,7 @@ As input to the network, the magnitude spectrograms of the noisy voices. As outp
 
 <img src="img/Unet_noisyvoice_to_noisemodel.png" alt="Unet training" title="Unet training" />
 
-Many configurations have been tested during the training. For the preferred configuration the encoder is made of 10 convolutional layers (with LeakyReLU, maxpooling and dropout). The decoder is a symmetric expanding path. The last activation layer is a hyperbolic tangent (tanh) to have an output distribution between -1 and 1. For training from scratch the initial random weights where set with He normal initializer.
+Many configurations have been tested during the training. For the preferred configuration the encoder is made of 10 convolutional layers (with LeakyReLU, maxpooling and dropout). The decoder is a symmetric expanding path with skip connections. The last activation layer is a hyperbolic tangent (tanh) to have an output distribution between -1 and 1. For training from scratch the initial random weights where set with He normal initializer.
 
 Model is compiled with Adam optimizer and the loss function used is the Huber loss as a compromise between the L1 and L2 loss.
 
