@@ -8,9 +8,11 @@ print(tf.__version__)
 
 #Unet network
 def unet(pretrained_weights = None,input_size = (128,128,1)):
+    #size filter input
     size_filter_in = 16
-    #kernel_init = 'glorot_uniform'
+    #normal initialization of weights
     kernel_init = 'he_normal'
+    #To apply leaky relu after the conv layer 
     activation_layer = None
     inputs = Input(input_size)
     conv1 = Conv2D(size_filter_in, 3, activation = activation_layer, padding = 'same', kernel_initializer = kernel_init)(inputs)
