@@ -142,7 +142,7 @@ Below, I show the corresponding gif of the spectrogram denoising gif (top of the
 <img src="img/denoise_ts_10classes.gif" alt="Timeserie denoising" title="Speech enhancement"/>
 
 As an extreme testing, I applied to some voices blended with many noises at a high level.
-The network appeared to work surprisingly well for the denoising.The total time to denoise a 5 sec audio was around 4 sec (using classical CPU).
+The network appeared to work surprisingly well for the denoising. The total time to denoise a 5 seconds audio was around 4 seconds (using classical CPU).
 
 Below some examples:
 
