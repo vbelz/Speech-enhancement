@@ -11,7 +11,7 @@ min_duration, frame_length, hop_length_frame, hop_length_frame_noise, nb_samples
     """This function will randomly blend some clean voices from voice_dir with some noises from noise_dir
     and save the spectrograms of noisy voice, noise and clean voices to disk as well as complex phase,
     time series and sounds. This aims at preparing datasets for denoising training. It takes as inputs
-    parameters defined in args"""
+    parameters defined in args module"""
 
     list_noise_files = os.listdir(noise_dir)
     list_voice_files = os.listdir(voice_dir)
