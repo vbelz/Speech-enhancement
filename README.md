@@ -28,7 +28,7 @@ The clean voices were mainly gathered from [LibriSpeech](http://www.openslr.org/
 The environmental noises were gathered from [ESC-50 dataset](https://github.com/karoldvl/ESC-50) or [https://www.ee.columbia.edu/~dpwe/sounds/](https://www.ee.columbia.edu/~dpwe/sounds/).  
 
  For this project, I focused on 10 classes of environmental noise: **tic clock**, **foot steps**, **bells**, **handsaw**, **alarm**, **fireworks**, **insects**, **brushing teeth**, **vaccum cleaner** and **snoring**. These classes are illustrated in the image below
- (I created this image using pictures from [https://unsplash.com](https://unsplash.com).
+ (I created this image using pictures from [https://unsplash.com](https://unsplash.com)).
 
 <img src="img/classes_noise.png" alt="classes of environmental noise used" title="classes of environmental noise" />
 
