@@ -2,7 +2,9 @@
 ---
 [![Build Status](https://travis-ci.com/vbelz/Speech-enhancement.svg?branch=master)](https://travis-ci.com/vbelz/Speech-enhancement)
 >Vincent Belz : vincent.belz@gmail.com
->Published in towards data science : [Speech-enhancement with Deep learning](https://towardsdatascience.com/speech-enhancement-with-deep-learning-36a1991d3d8d) 
+>
+>Published in towards data science : [Speech-enhancement with Deep learning](https://towardsdatascience.com/speech-enhancement-with-deep-learning-36a1991d3d8d)
+>
 ## Introduction
 **This project aims at building a speech enhancement system to attenuate environmental noise.**
 
