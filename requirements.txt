@@ -1,5 +1,5 @@
 pytest
-tensorflow==1.15.2
+tensorflow==2.9.3
 librosa
 matplotlib
 numpy==1.17.2
