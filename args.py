@@ -5,15 +5,15 @@ parser = argparse.ArgumentParser(description='Speech enhancement,data creation, 
 #mode to run the program (options: data creation, training or prediction)
 parser.add_argument('--mode',default='prediction', type=str, choices=['data_creation', 'training', 'prediction'])
 #folders where to find noise audios and clean voice audio to prepare training dataset (mode data_creation)
-parser.add_argument('--noise_dir', default='/Users/vincentbelz/Documents/Data/Speech_enhancement/Train/noise', type=str)
+parser.add_argument('--noise_dir', default='/noise', type=str)
 
-parser.add_argument('--voice_dir', default='/Users/vincentbelz/Documents/Data/Speech_enhancement/Train/clean_voice', type=str)
+parser.add_argument('--voice_dir', default='/clean_voice', type=str)
 #folders where to save spectrograms, time series and sounds for training / QC
-parser.add_argument('--path_save_spectrogram', default='/Users/vincentbelz/Documents/Data/Speech_enhancement/Train/spectrogram/', type=str)
+parser.add_argument('--path_save_spectrogram', default='/spectrogram/', type=str)
 
-parser.add_argument('--path_save_time_serie', default='/Users/vincentbelz/Documents/Data/Speech_enhancement/Train/time_serie/', type=str)
+parser.add_argument('--path_save_time_serie', default='/time_serie/', type=str)
 
-parser.add_argument('--path_save_sound', default='/Users/vincentbelz/Documents/Data/Speech_enhancement/Train/sound/', type=str)
+parser.add_argument('--path_save_sound', default='/sound/', type=str)
 #How much frame to create in data_creation mode
 parser.add_argument('--nb_samples', default=50, type=int)
 #Training from scratch or pre-trained weights
