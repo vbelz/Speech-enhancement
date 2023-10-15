@@ -2,9 +2,8 @@ services:
   ml:
       image: containerized-training:latest
       container_name: containerized-training
-      command:
-        - python3 
-        - test.py
+      stdin_open: true
+      tty: true
       deploy:
         resources:
           reservations:
