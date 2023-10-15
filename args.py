@@ -9,11 +9,11 @@ parser.add_argument('--noise_dir', default='/noise', type=str)
 
 parser.add_argument('--voice_dir', default='/clean_voice', type=str)
 #folders where to save spectrograms, time series and sounds for training / QC
-parser.add_argument('--path_save_spectrogram', default='/spectrogram/', type=str)
+parser.add_argument('--path_save_spectrogram', default='/spectrogram', type=str)
 
-parser.add_argument('--path_save_time_serie', default='/time_serie/', type=str)
+parser.add_argument('--path_save_time_serie', default='/time_series', type=str)
 
-parser.add_argument('--path_save_sound', default='/sound/', type=str)
+parser.add_argument('--path_save_sound', default='/sound', type=str)
 #How much frame to create in data_creation mode
 parser.add_argument('--nb_samples', default=50, type=int)
 #Training from scratch or pre-trained weights
