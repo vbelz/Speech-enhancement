@@ -1,0 +1,13 @@
+services:
+  ml:
+      image: containerized-training:latest
+      container_name: containerized-training
+      stdin_open: true
+      tty: true
+      deploy:
+        resources:
+          reservations:
+            devices:
+              - driver: nvidia
+                count: 1
+                capabilities: [gpu]
